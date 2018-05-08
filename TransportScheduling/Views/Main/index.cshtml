@@ -1,0 +1,145 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>物流运管调度</title>
+    <link href="~/Content/css/index.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=73e03c98e7bb0f88c022c2cfecab8756"></script>
+    <style>
+        #div1 {
+            width: 150px;
+            height: 200px;
+            background-color: #808080;
+            position: absolute;
+            left: -150px;
+            top: 50px;
+        }
+
+            #div1 span {
+                width: 20px;
+                height: 65px;
+                position: absolute;
+                right: -20px;
+                top: 60px;
+                background: green;
+            }
+    </style>
+    <script>
+        window.onload = function () {
+            var oDiv = document.getElementById('div1');
+
+            oDiv.onmouseover = function () {
+                move(0);
+            }
+            oDiv.onmouseout = function () {
+                move(-150);
+            }
+        }
+        var timer = null;
+        function move(itarget) {
+            var oDiv = document.getElementById('div1');
+            var speed;
+            if (oDiv.offsetLeft < itarget) {
+                speed = 10;
+            } else {
+                speed = -10;
+            }
+            clearInterval(timer);
+            timer = setInterval(function () {
+                if (oDiv.offsetLeft == itarget) {
+                    clearInterval(timer);
+                } else {
+                    oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+                }
+
+            }, 50);
+        }
+    </script>
+</head>
+<body>
+    <div id="main">
+        <div id="top">
+            <img src="img/1.png" />
+        </div>
+        <div id="div1">
+            <span>导航栏</span>
+            <ul>
+                <li>调度模块</li>
+                <li>货物管理</li>
+                <li>大数据处理</li>
+                <li>人&nbsp;&nbsp;员</li>
+                <li>车辆管理</li>
+            </ul>
+        </div>
+        <!--<div id="nav">
+            <ul>
+                <li>调度模块</li>
+                <li>货物管理</li>
+                <li>大数据处理</li>
+                <li>人&nbsp;&nbsp;员</li>
+                <li>车辆管理</li>
+            </ul>
+        </div>-->
+        <div id="content">
+            <!--地图显示-->
+            <div id="con-l">
+                <script type="text/javascript">
+                    var map = new AMap.Map('con-l', {
+                        resizeEnable: true,
+                        zoom: 11,
+                        center: [115.482331, 38.867657]//经纬度
+                    });
+                </script>
+            </div>
+            <div id="con-r">
+                <ul>
+                    <li><a href="#">即将进出仓库货物的信息</a><span>2018-5-5</span></li>
+                    <li><a href="#">即将进出仓库货物的信息</a><span>2018-5-5</span></li>
+                    <li><a href="#">即将进出仓库货物的信息</a><span>2018-5-5</span></li>
+                    <li><a href="#">即将进出仓库货物的信息</a><span>2018-5-5</span></li>
+                    <li><a href="#">即将进出仓库货物的信息</a><span>2018-5-5</span></li>
+                    <li><a href="#">即将进出仓库货物的信息</a><span>2018-5-5</span></li>
+                    <li><a href="#">即将进出仓库货物的信息</a><span>2018-5-5</span></li>
+                    <li><a href="#">即将进出仓库货物的信息</a><span>2018-5-5</span></li>
+                </ul>
+            </div>
+            <div id="con-t-l">
+                <ul>
+                    <li><a href="#">车辆信息及司机的行驶状况</a><span>2018-5-5</span></li>
+                    <li><a href="#">车辆信息及司机的行驶状况</a><span>2018-5-5</span></li>
+                    <li><a href="#">车辆信息及司机的行驶状况</a><span>2018-5-5</span></li>
+                    <li><a href="#">车辆信息及司机的行驶状况</a><span>2018-5-5</span></li>
+                    <li><a href="#">车辆信息及司机的行驶状况</a><span>2018-5-5</span></li>
+                    <li><a href="#">车辆信息及司机的行驶状况</a><span>2018-5-5</span></li>
+                    <li><a href="#">车辆信息及司机的行驶状况</a><span>2018-5-5</span></li>
+                    <li><a href="#">车辆信息及司机的行驶状况</a><span>2018-5-5</span></li>
+                </ul>
+            </div>
+            <div id="con-t-r">
+                <ul>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                    <li><a href="#">人员情况(在岗、请假人员列表)</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="bottom">
+            <p>技术支持：河北大学工商学院网络中心<br />Copy@12458gjjjvnjjkkk4552</p>
+        </div>
+    </div>
+</body>
+</html>

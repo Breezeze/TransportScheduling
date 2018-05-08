@@ -106,13 +106,14 @@
             }
         </table>
         <a href="#" onclick="document.getElementById('FormAdd').style.display='block'">添加</a>
-
+        <!--分页跳转-->
         <form action="#" method="post" name="FormSkip">
             @{ int LastNum = ViewBag.PageNum == 1 ? 1 : ViewBag.PageNum - 1; int NextNum = ViewBag.PageNum == ViewBag.TotalPage ? ViewBag.TotalPage : ViewBag.PageNum + 1; }
             <a onclick="FormSkip.action='/Indent/Main/@LastNum'; FormSkip.submit();" href="#">上一页</a>&nbsp;
             <a onclick="FormSkip.action = '/Indent/Main/@NextNum'; FormSkip.submit();" href="#">下一页</a>
         </form>
     </div>
+    <!--修改Form-->
     <div>
         <form action="/Indent/Modify" method="post" name="FormMod" style="display:none">
             <input type="hidden" value="-1" name="Iid" id="Iid" />
@@ -121,6 +122,7 @@
             <input type="hidden" value="-1" name="IRemarks" id="IRemarks" />
         </form>
     </div>
+    <!--添加Form-->
     <div>
         <form action="/Indent/Add1" method="post" name="FormAdd" id="FormAdd" style="display:none">
             @*<input type="text" value="-1" name="Code" id="add_Code" />*@

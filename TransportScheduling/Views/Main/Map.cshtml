@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>基本地图展示</title>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=73e03c98e7bb0f88c022c2cfecab8756"></script>
+    <script type="text/javascript">
+        var map;
+        function init() {
+            map = new AMap.Map('container', {
+                resizeEnable: true,
+                zoom: 11,
+                center: [115.482331, 38.867657]//经纬度
+            });
+            document.getElementById("Btn").style.display = "none";
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="点击查看" onclick="init()" id="Btn" />
+    <div id="container" style="height:800px;width:1000px"></div>
+</body>
+</html>
