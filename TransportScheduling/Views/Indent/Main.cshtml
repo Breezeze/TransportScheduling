@@ -1,0 +1,137 @@
+﻿@{
+    Layout = null;
+}
+@using TransportScheduling.Models
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Mian</title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/BaseForAjax.js"></script>
+    <script type="text/javascript">
+
+        //生成的状态下拉框html代码
+        var StateListHtml = "";
+        //已触发修改按钮点击事件的id值
+        var ModifyId = -1;
+        //存储点击修改按钮前的各个值
+        var list = new Array(3);
+
+
+        //将状态下拉框html代码存储于statelisthtml中
+        $(function () {
+            StateListHtml = $("#_StateList").html();
+            $("#_StateList").empty();
+        })
+        //修改按钮恢复
+        function Recover() {
+            if (ModifyId != -1) {
+                $("#date2_" + ModifyId).empty().append(list[0]);
+                $("#state_" + ModifyId).empty().append(list[1]);
+                $("#remarks_" + ModifyId).empty().append(list[2]);
+                $("#BtnMod_" + ModifyId).empty().append("<a onclick='SelectModify(" + ModifyId + ")'>点击修改</a>");
+            }
+        }
+        //修改按钮点击事件
+        function SelectModify(id) {
+            Recover();
+            ModifyId = id;
+            list[0] = $("#date2_" + id).text();
+            $("#date2_" + id).empty().append("<input type='text' value='" + list[0] + "' id='_IDeliveryDate' />");//交付日期
+            list[1] = $("#state_" + id).text();
+            $("#state_" + id).empty().append(StateListHtml);//订单状态
+            list[2] = $("#remarks_" + id).text();
+            $("#remarks_" + id).empty().append("<input type='text' value='" + list[2] + "' id='_IRemarks' />");//备注
+            $("#BtnMod_" + id).empty().append("<input type='Button' value='确定修改' onclick='Modify(" + id + ")'>");//修改按键
+        }
+
+        function Modify(id) {
+            if (confirm("确定修改？")) {
+                $("#Iid").val(id);
+                $("#IState").val($("select[name='_IState'] option:selected").val());
+                $("#IRemarks").val($("#_IRemarks").val());
+                $("#IDeliveryDate").val($("#_IDeliveryDate").val());
+                FormMod.submit();
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <!--状态下拉框-->
+    <div id="_StateList">@Html.DropDownList("_IState", ViewBag.StateList as List<SelectListItem>)</div>
+    <!--信息总览-->
+    <div>
+        <table>
+            <tr>
+                <td style="width:150px">编号</td>
+                <td style="width:150px">订单内容</td>
+                <td style="width:150px">签订日期</td>
+                <td style="width:150px">截止时期</td>
+                <td style="width:150px">状态</td>
+                <td style="width:150px">交付日期</td>
+                <td style="width:150px">备注</td>
+                <td style="width:80px"></td>
+                <td style="width:50px"></td>
+            </tr>
+            @foreach (T_Infor_Indent item in Model as List<T_Infor_Indent>)
+            {
+                string[] date = { "无", "无", "无" };
+                if (item.ISigningDate != null)
+                {
+                    date[0] = ((DateTime)item.ISigningDate).ToString("yy-MM-dd HH:mm");
+                }
+                if (item.IExpirationDate != null)
+                {
+                    date[1] = ((DateTime)item.IExpirationDate).ToString("yy-MM-dd HH:mm");
+                }
+                if (item.IDeliveryDate != null)
+                {
+                    date[2] = ((DateTime)item.IDeliveryDate).ToString("yy-MM-dd HH:mm");
+                }
+
+                <tr>
+                    <td id="id_@item.Iid">@item.ICode</td>
+                    <td id="content_@item.Iid"><a href="#">@*@item.IContent*@点击查看</a></td>
+                    <td id="date0_@item.Iid">@date[0]</td>
+                    <td id="date1_@item.Iid">@date[1]</td>
+                    <td id="state_@item.Iid">@item.T_Dic_IndentState.Description</td>
+                    <td id="date2_@item.Iid">@date[2]</td>
+                    <td id="remarks_@item.Iid">@item.IRemarks</td>
+                    <td id="BtnMod_@item.Iid"><a onclick="SelectModify(@item.Iid)">点击修改</a></td>
+                    <td><a id="BtnDel_@item.Iid" onclick="if(confirm(' 确定删除吗？')) window.location='/Indent/Delete/' + @item.Iid" href="#">删除</a></td>
+                </tr>
+            }
+        </table>
+        <a href="#" onclick="document.getElementById('FormAdd').style.display='block'">添加</a>
+
+        <form action="#" method="post" name="FormSkip">
+            @{ int LastNum = ViewBag.PageNum == 1 ? 1 : ViewBag.PageNum - 1; int NextNum = ViewBag.PageNum == ViewBag.TotalPage ? ViewBag.TotalPage : ViewBag.PageNum + 1; }
+            <a onclick="FormSkip.action='/Indent/Main/@LastNum'; FormSkip.submit();" href="#">上一页</a>&nbsp;
+            <a onclick="FormSkip.action = '/Indent/Main/@NextNum'; FormSkip.submit();" href="#">下一页</a>
+        </form>
+    </div>
+    <div>
+        <form action="/Indent/Modify" method="post" name="FormMod" style="display:none">
+            <input type="hidden" value="-1" name="Iid" id="Iid" />
+            <input type="hidden" value="-1" name="IDeliveryDate" id="IDeliveryDate" />
+            <input type="hidden" value="-1" name="IState" id="IState" />
+            <input type="hidden" value="-1" name="IRemarks" id="IRemarks" />
+        </form>
+    </div>
+    <div>
+        <form action="/Indent/Add1" method="post" name="FormAdd" id="FormAdd" style="display:none">
+            @*<input type="text" value="-1" name="Code" id="add_Code" />*@
+            <br />订单内容：<input type="text" value="" name="Content" id="add_Content" />
+            <br />签订日期：<input type="text" value="" name="SigningDate" id="add_SigningDate" />
+            <br />截止日期：<input type="text" value="" name="ExpirationDate" id="add_ExpirationDate" />
+            <br />状态：<input type="text" value="" name="State" id="State" />
+            <br />交付日期：<input type="text" value="" name="DeliveryDate" id="add_DeliveryDate" />
+            <br />备注：<input type="text" value="" name="Remarks" id="add_Remarks" />
+            <br /><input type="submit" value="提交" />
+        </form>
+    </div>
+</body>
+</html>

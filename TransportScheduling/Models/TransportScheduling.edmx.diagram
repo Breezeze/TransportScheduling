@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="44922391d37e4402b8ca80cf8ed7af1f" Name="Diagram1">
+        <EntityTypeShape EntityType="TransportSchedulingModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="9.75" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Dic_GoodsState" Width="1.5" PointX="0.75" PointY="10.375" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Dic_IndentState" Width="1.5" PointX="5.75" PointY="6.375" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Dic_Staff" Width="1.5" PointX="5.75" PointY="1.875" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Dic_TruckState" Width="1.5" PointX="0.75" PointY="5.875" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Dic_WarehouseState" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Infor_Goods" Width="1.5" PointX="3" PointY="10" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Infor_Indent" Width="1.5" PointX="8" PointY="6" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Infor_Staff" Width="1.5" PointX="8" PointY="1" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Infor_Truck" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Infor_UserLogin" Width="1.5" PointX="7.75" PointY="9.75" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Infor_Warehouse" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="TransportSchedulingModel.FK_T_Infor_Goods_T_Dic_GoodsState" />
+        <AssociationConnector Association="TransportSchedulingModel.FK_T_Infor_Indent_T_Dic_IndentState" />
+        <AssociationConnector Association="TransportSchedulingModel.FK_T_Infor_Staff_T_Dic_Staff" />
+        <AssociationConnector Association="TransportSchedulingModel.FK_T_Infor_Truck_T_Dic_TruckState" />
+        <AssociationConnector Association="TransportSchedulingModel.FK_T_Infor_Warehouse_T_Dic_WarehouseState" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

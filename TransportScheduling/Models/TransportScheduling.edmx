@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TransportSchedulingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="T_Dic_GoodsState">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Nid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Decription" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Dic_IndentState">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Nid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Dic_Staff">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Nid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Dic_TruckState">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Nid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Dic_WarehouseState">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Nid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Decription" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Infor_Goods">
+          <Key>
+            <PropertyRef Name="Gid" />
+          </Key>
+          <Property Name="Gid" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GName" Type="varchar" MaxLength="50" />
+          <Property Name="GWarehouseId" Type="int" />
+          <Property Name="GDemand" Type="varchar" MaxLength="50" />
+          <Property Name="GSurplus" Type="varchar" MaxLength="50" />
+          <Property Name="GState" Type="int" />
+          <Property Name="GRemarks" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Infor_Indent">
+          <Key>
+            <PropertyRef Name="Iid" />
+          </Key>
+          <Property Name="Iid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ICode" Type="bigint" />
+          <Property Name="IContent" Type="text" />
+          <Property Name="ISigningDate" Type="smalldatetime" />
+          <Property Name="IExpirationDate" Type="smalldatetime" />
+          <Property Name="IState" Type="int" />
+          <Property Name="IDeliveryDate" Type="smalldatetime" />
+          <Property Name="IRemarks" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Infor_Staff">
+          <Key>
+            <PropertyRef Name="Sid" />
+          </Key>
+          <Property Name="Sid" Type="int" Nullable="false" />
+          <Property Name="SName" Type="varchar" MaxLength="50" />
+          <Property Name="SGender" Type="char" MaxLength="2" />
+          <Property Name="SAge" Type="int" />
+          <Property Name="SIdnumber" Type="char" MaxLength="18" />
+          <Property Name="SPhoneNumber" Type="char" MaxLength="11" />
+          <Property Name="SAddress" Type="varchar" MaxLength="50" />
+          <Property Name="STakeOfficeDate" Type="date" />
+          <Property Name="SState" Type="int" />
+          <Property Name="SHolidayEndDate" Type="date" />
+          <Property Name="SLevel" Type="int" />
+          <Property Name="SUserId" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Infor_Truck">
+          <Key>
+            <PropertyRef Name="Tid" />
+          </Key>
+          <Property Name="Tid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TType" Type="varchar" MaxLength="50" />
+          <Property Name="TBrand" Type="varchar" MaxLength="50" />
+          <Property Name="TModel" Type="varchar" MaxLength="50" />
+          <Property Name="TLicensePlateNumber" Type="varchar" MaxLength="50" />
+          <Property Name="TGpSChipId" Type="int" />
+          <Property Name="TLocation" Type="varchar" MaxLength="50" />
+          <Property Name="TTerritory" Type="varchar" MaxLength="50" />
+          <Property Name="TDriverId" Type="int" />
+          <Property Name="TState" Type="int" />
+          <Property Name="TTaskId" Type="varchar" MaxLength="50" />
+          <Property Name="TRemarks" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Infor_UserLogin">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UName" Type="varchar" MaxLength="50" />
+          <Property Name="UAccount" Type="varchar" MaxLength="50" />
+          <Property Name="UPassword" Type="varchar" MaxLength="50" />
+          <Property Name="ULevel" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Infor_Warehouse">
+          <Key>
+            <PropertyRef Name="Wid" />
+          </Key>
+          <Property Name="Wid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WName" Type="varchar" MaxLength="50" />
+          <Property Name="WStaffId" Type="int" />
+          <Property Name="WLocation" Type="varchar" MaxLength="50" />
+          <Property Name="WState" Type="int" />
+        </EntityType>
+        <Association Name="FK_T_Infor_Goods_T_Dic_GoodsState">
+          <End Role="T_Dic_GoodsState" Type="Self.T_Dic_GoodsState" Multiplicity="0..1" />
+          <End Role="T_Infor_Goods" Type="Self.T_Infor_Goods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Dic_GoodsState">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="T_Infor_Goods">
+              <PropertyRef Name="GState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Infor_Indent_T_Dic_IndentState">
+          <End Role="T_Dic_IndentState" Type="Self.T_Dic_IndentState" Multiplicity="0..1" />
+          <End Role="T_Infor_Indent" Type="Self.T_Infor_Indent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Dic_IndentState">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="T_Infor_Indent">
+              <PropertyRef Name="IState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Infor_Staff_T_Dic_Staff">
+          <End Role="T_Dic_Staff" Type="Self.T_Dic_Staff" Multiplicity="0..1" />
+          <End Role="T_Infor_Staff" Type="Self.T_Infor_Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Dic_Staff">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="T_Infor_Staff">
+              <PropertyRef Name="SState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Infor_Truck_T_Dic_TruckState">
+          <End Role="T_Dic_TruckState" Type="Self.T_Dic_TruckState" Multiplicity="0..1" />
+          <End Role="T_Infor_Truck" Type="Self.T_Infor_Truck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Dic_TruckState">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="T_Infor_Truck">
+              <PropertyRef Name="TState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Infor_Warehouse_T_Dic_WarehouseState">
+          <End Role="T_Dic_WarehouseState" Type="Self.T_Dic_WarehouseState" Multiplicity="0..1" />
+          <End Role="T_Infor_Warehouse" Type="Self.T_Infor_Warehouse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Dic_WarehouseState">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="T_Infor_Warehouse">
+              <PropertyRef Name="WState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TransportSchedulingModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Dic_GoodsState" EntityType="Self.T_Dic_GoodsState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Dic_IndentState" EntityType="Self.T_Dic_IndentState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Dic_Staff" EntityType="Self.T_Dic_Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Dic_TruckState" EntityType="Self.T_Dic_TruckState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Dic_WarehouseState" EntityType="Self.T_Dic_WarehouseState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Infor_Goods" EntityType="Self.T_Infor_Goods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Infor_Indent" EntityType="Self.T_Infor_Indent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Infor_Staff" EntityType="Self.T_Infor_Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Infor_Truck" EntityType="Self.T_Infor_Truck" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Infor_UserLogin" EntityType="Self.T_Infor_UserLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Infor_Warehouse" EntityType="Self.T_Infor_Warehouse" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_T_Infor_Goods_T_Dic_GoodsState" Association="Self.FK_T_Infor_Goods_T_Dic_GoodsState">
+            <End Role="T_Dic_GoodsState" EntitySet="T_Dic_GoodsState" />
+            <End Role="T_Infor_Goods" EntitySet="T_Infor_Goods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Infor_Indent_T_Dic_IndentState" Association="Self.FK_T_Infor_Indent_T_Dic_IndentState">
+            <End Role="T_Dic_IndentState" EntitySet="T_Dic_IndentState" />
+            <End Role="T_Infor_Indent" EntitySet="T_Infor_Indent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Infor_Staff_T_Dic_Staff" Association="Self.FK_T_Infor_Staff_T_Dic_Staff">
+            <End Role="T_Dic_Staff" EntitySet="T_Dic_Staff" />
+            <End Role="T_Infor_Staff" EntitySet="T_Infor_Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Infor_Truck_T_Dic_TruckState" Association="Self.FK_T_Infor_Truck_T_Dic_TruckState">
+            <End Role="T_Dic_TruckState" EntitySet="T_Dic_TruckState" />
+            <End Role="T_Infor_Truck" EntitySet="T_Infor_Truck" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Infor_Warehouse_T_Dic_WarehouseState" Association="Self.FK_T_Infor_Warehouse_T_Dic_WarehouseState">
+            <End Role="T_Dic_WarehouseState" EntitySet="T_Dic_WarehouseState" />
+            <End Role="T_Infor_Warehouse" EntitySet="T_Infor_Warehouse" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TransportSchedulingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="TransportSchedulingModel.sysdiagrams" />
+          <EntitySet Name="T_Dic_GoodsState" EntityType="TransportSchedulingModel.T_Dic_GoodsState" />
+          <EntitySet Name="T_Dic_IndentState" EntityType="TransportSchedulingModel.T_Dic_IndentState" />
+          <EntitySet Name="T_Dic_Staff" EntityType="TransportSchedulingModel.T_Dic_Staff" />
+          <EntitySet Name="T_Dic_TruckState" EntityType="TransportSchedulingModel.T_Dic_TruckState" />
+          <EntitySet Name="T_Dic_WarehouseState" EntityType="TransportSchedulingModel.T_Dic_WarehouseState" />
+          <EntitySet Name="T_Infor_Goods" EntityType="TransportSchedulingModel.T_Infor_Goods" />
+          <EntitySet Name="T_Infor_Indent" EntityType="TransportSchedulingModel.T_Infor_Indent" />
+          <EntitySet Name="T_Infor_Staff" EntityType="TransportSchedulingModel.T_Infor_Staff" />
+          <EntitySet Name="T_Infor_Truck" EntityType="TransportSchedulingModel.T_Infor_Truck" />
+          <EntitySet Name="T_Infor_UserLogin" EntityType="TransportSchedulingModel.T_Infor_UserLogin" />
+          <EntitySet Name="T_Infor_Warehouse" EntityType="TransportSchedulingModel.T_Infor_Warehouse" />
+          <AssociationSet Name="FK_T_Infor_Goods_T_Dic_GoodsState" Association="TransportSchedulingModel.FK_T_Infor_Goods_T_Dic_GoodsState">
+            <End Role="T_Dic_GoodsState" EntitySet="T_Dic_GoodsState" />
+            <End Role="T_Infor_Goods" EntitySet="T_Infor_Goods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Infor_Indent_T_Dic_IndentState" Association="TransportSchedulingModel.FK_T_Infor_Indent_T_Dic_IndentState">
+            <End Role="T_Dic_IndentState" EntitySet="T_Dic_IndentState" />
+            <End Role="T_Infor_Indent" EntitySet="T_Infor_Indent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Infor_Staff_T_Dic_Staff" Association="TransportSchedulingModel.FK_T_Infor_Staff_T_Dic_Staff">
+            <End Role="T_Dic_Staff" EntitySet="T_Dic_Staff" />
+            <End Role="T_Infor_Staff" EntitySet="T_Infor_Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Infor_Truck_T_Dic_TruckState" Association="TransportSchedulingModel.FK_T_Infor_Truck_T_Dic_TruckState">
+            <End Role="T_Dic_TruckState" EntitySet="T_Dic_TruckState" />
+            <End Role="T_Infor_Truck" EntitySet="T_Infor_Truck" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Infor_Warehouse_T_Dic_WarehouseState" Association="TransportSchedulingModel.FK_T_Infor_Warehouse_T_Dic_WarehouseState">
+            <End Role="T_Dic_WarehouseState" EntitySet="T_Dic_WarehouseState" />
+            <End Role="T_Infor_Warehouse" EntitySet="T_Infor_Warehouse" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="T_Dic_GoodsState">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Nid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Decription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Infor_Goods" Relationship="TransportSchedulingModel.FK_T_Infor_Goods_T_Dic_GoodsState" FromRole="T_Dic_GoodsState" ToRole="T_Infor_Goods" />
+        </EntityType>
+        <EntityType Name="T_Dic_IndentState">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Nid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Infor_Indent" Relationship="TransportSchedulingModel.FK_T_Infor_Indent_T_Dic_IndentState" FromRole="T_Dic_IndentState" ToRole="T_Infor_Indent" />
+        </EntityType>
+        <EntityType Name="T_Dic_Staff">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Nid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Infor_Staff" Relationship="TransportSchedulingModel.FK_T_Infor_Staff_T_Dic_Staff" FromRole="T_Dic_Staff" ToRole="T_Infor_Staff" />
+        </EntityType>
+        <EntityType Name="T_Dic_TruckState">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Nid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Infor_Truck" Relationship="TransportSchedulingModel.FK_T_Infor_Truck_T_Dic_TruckState" FromRole="T_Dic_TruckState" ToRole="T_Infor_Truck" />
+        </EntityType>
+        <EntityType Name="T_Dic_WarehouseState">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Nid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Decription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Infor_Warehouse" Relationship="TransportSchedulingModel.FK_T_Infor_Warehouse_T_Dic_WarehouseState" FromRole="T_Dic_WarehouseState" ToRole="T_Infor_Warehouse" />
+        </EntityType>
+        <EntityType Name="T_Infor_Goods">
+          <Key>
+            <PropertyRef Name="Gid" />
+          </Key>
+          <Property Name="Gid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GWarehouseId" Type="Int32" />
+          <Property Name="GDemand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GSurplus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GState" Type="Int32" />
+          <Property Name="GRemarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Dic_GoodsState" Relationship="TransportSchedulingModel.FK_T_Infor_Goods_T_Dic_GoodsState" FromRole="T_Infor_Goods" ToRole="T_Dic_GoodsState" />
+        </EntityType>
+        <EntityType Name="T_Infor_Indent">
+          <Key>
+            <PropertyRef Name="Iid" />
+          </Key>
+          <Property Name="Iid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ICode" Type="Int64" />
+          <Property Name="IContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ISigningDate" Type="DateTime" Precision="0" />
+          <Property Name="IExpirationDate" Type="DateTime" Precision="0" />
+          <Property Name="IState" Type="Int32" />
+          <Property Name="IDeliveryDate" Type="DateTime" Precision="0" />
+          <Property Name="IRemarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Dic_IndentState" Relationship="TransportSchedulingModel.FK_T_Infor_Indent_T_Dic_IndentState" FromRole="T_Infor_Indent" ToRole="T_Dic_IndentState" />
+        </EntityType>
+        <EntityType Name="T_Infor_Staff">
+          <Key>
+            <PropertyRef Name="Sid" />
+          </Key>
+          <Property Name="Sid" Type="Int32" Nullable="false" />
+          <Property Name="SName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SGender" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="SAge" Type="Int32" />
+          <Property Name="SIdnumber" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="SPhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="SAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="STakeOfficeDate" Type="DateTime" Precision="0" />
+          <Property Name="SState" Type="Int32" />
+          <Property Name="SHolidayEndDate" Type="DateTime" Precision="0" />
+          <Property Name="SLevel" Type="Int32" />
+          <Property Name="SUserId" Type="Int32" />
+          <NavigationProperty Name="T_Dic_Staff" Relationship="TransportSchedulingModel.FK_T_Infor_Staff_T_Dic_Staff" FromRole="T_Infor_Staff" ToRole="T_Dic_Staff" />
+        </EntityType>
+        <EntityType Name="T_Infor_Truck">
+          <Key>
+            <PropertyRef Name="Tid" />
+          </Key>
+          <Property Name="Tid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TModel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TLicensePlateNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TGpSChipId" Type="Int32" />
+          <Property Name="TLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TTerritory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TDriverId" Type="Int32" />
+          <Property Name="TState" Type="Int32" />
+          <Property Name="TTaskId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRemarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Dic_TruckState" Relationship="TransportSchedulingModel.FK_T_Infor_Truck_T_Dic_TruckState" FromRole="T_Infor_Truck" ToRole="T_Dic_TruckState" />
+        </EntityType>
+        <EntityType Name="T_Infor_UserLogin">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ULevel" Type="Int32" />
+        </EntityType>
+        <EntityType Name="T_Infor_Warehouse">
+          <Key>
+            <PropertyRef Name="Wid" />
+          </Key>
+          <Property Name="Wid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WStaffId" Type="Int32" />
+          <Property Name="WLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WState" Type="Int32" />
+          <NavigationProperty Name="T_Dic_WarehouseState" Relationship="TransportSchedulingModel.FK_T_Infor_Warehouse_T_Dic_WarehouseState" FromRole="T_Infor_Warehouse" ToRole="T_Dic_WarehouseState" />
+        </EntityType>
+        <Association Name="FK_T_Infor_Goods_T_Dic_GoodsState">
+          <End Type="TransportSchedulingModel.T_Dic_GoodsState" Role="T_Dic_GoodsState" Multiplicity="0..1" />
+          <End Type="TransportSchedulingModel.T_Infor_Goods" Role="T_Infor_Goods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Dic_GoodsState">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="T_Infor_Goods">
+              <PropertyRef Name="GState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Infor_Indent_T_Dic_IndentState">
+          <End Type="TransportSchedulingModel.T_Dic_IndentState" Role="T_Dic_IndentState" Multiplicity="0..1" />
+          <End Type="TransportSchedulingModel.T_Infor_Indent" Role="T_Infor_Indent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Dic_IndentState">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="T_Infor_Indent">
+              <PropertyRef Name="IState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Infor_Staff_T_Dic_Staff">
+          <End Type="TransportSchedulingModel.T_Dic_Staff" Role="T_Dic_Staff" Multiplicity="0..1" />
+          <End Type="TransportSchedulingModel.T_Infor_Staff" Role="T_Infor_Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Dic_Staff">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="T_Infor_Staff">
+              <PropertyRef Name="SState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Infor_Truck_T_Dic_TruckState">
+          <End Type="TransportSchedulingModel.T_Dic_TruckState" Role="T_Dic_TruckState" Multiplicity="0..1" />
+          <End Type="TransportSchedulingModel.T_Infor_Truck" Role="T_Infor_Truck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Dic_TruckState">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="T_Infor_Truck">
+              <PropertyRef Name="TState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Infor_Warehouse_T_Dic_WarehouseState">
+          <End Type="TransportSchedulingModel.T_Dic_WarehouseState" Role="T_Dic_WarehouseState" Multiplicity="0..1" />
+          <End Type="TransportSchedulingModel.T_Infor_Warehouse" Role="T_Infor_Warehouse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Dic_WarehouseState">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="T_Infor_Warehouse">
+              <PropertyRef Name="WState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TransportSchedulingModelStoreContainer" CdmEntityContainer="TSEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Dic_GoodsState">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.T_Dic_GoodsState">
+              <MappingFragment StoreEntitySet="T_Dic_GoodsState">
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Nid" ColumnName="Nid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Dic_IndentState">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.T_Dic_IndentState">
+              <MappingFragment StoreEntitySet="T_Dic_IndentState">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Nid" ColumnName="Nid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Dic_Staff">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.T_Dic_Staff">
+              <MappingFragment StoreEntitySet="T_Dic_Staff">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Nid" ColumnName="Nid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Dic_TruckState">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.T_Dic_TruckState">
+              <MappingFragment StoreEntitySet="T_Dic_TruckState">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Nid" ColumnName="Nid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Dic_WarehouseState">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.T_Dic_WarehouseState">
+              <MappingFragment StoreEntitySet="T_Dic_WarehouseState">
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Nid" ColumnName="Nid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Infor_Goods">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.T_Infor_Goods">
+              <MappingFragment StoreEntitySet="T_Infor_Goods">
+                <ScalarProperty Name="GRemarks" ColumnName="GRemarks" />
+                <ScalarProperty Name="GState" ColumnName="GState" />
+                <ScalarProperty Name="GSurplus" ColumnName="GSurplus" />
+                <ScalarProperty Name="GDemand" ColumnName="GDemand" />
+                <ScalarProperty Name="GWarehouseId" ColumnName="GWarehouseId" />
+                <ScalarProperty Name="GName" ColumnName="GName" />
+                <ScalarProperty Name="Gid" ColumnName="Gid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Infor_Indent">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.T_Infor_Indent">
+              <MappingFragment StoreEntitySet="T_Infor_Indent">
+                <ScalarProperty Name="IRemarks" ColumnName="IRemarks" />
+                <ScalarProperty Name="IDeliveryDate" ColumnName="IDeliveryDate" />
+                <ScalarProperty Name="IState" ColumnName="IState" />
+                <ScalarProperty Name="IExpirationDate" ColumnName="IExpirationDate" />
+                <ScalarProperty Name="ISigningDate" ColumnName="ISigningDate" />
+                <ScalarProperty Name="IContent" ColumnName="IContent" />
+                <ScalarProperty Name="ICode" ColumnName="ICode" />
+                <ScalarProperty Name="Iid" ColumnName="Iid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Infor_Staff">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.T_Infor_Staff">
+              <MappingFragment StoreEntitySet="T_Infor_Staff">
+                <ScalarProperty Name="SUserId" ColumnName="SUserId" />
+                <ScalarProperty Name="SLevel" ColumnName="SLevel" />
+                <ScalarProperty Name="SHolidayEndDate" ColumnName="SHolidayEndDate" />
+                <ScalarProperty Name="SState" ColumnName="SState" />
+                <ScalarProperty Name="STakeOfficeDate" ColumnName="STakeOfficeDate" />
+                <ScalarProperty Name="SAddress" ColumnName="SAddress" />
+                <ScalarProperty Name="SPhoneNumber" ColumnName="SPhoneNumber" />
+                <ScalarProperty Name="SIdnumber" ColumnName="SIdnumber" />
+                <ScalarProperty Name="SAge" ColumnName="SAge" />
+                <ScalarProperty Name="SGender" ColumnName="SGender" />
+                <ScalarProperty Name="SName" ColumnName="SName" />
+                <ScalarProperty Name="Sid" ColumnName="Sid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Infor_Truck">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.T_Infor_Truck">
+              <MappingFragment StoreEntitySet="T_Infor_Truck">
+                <ScalarProperty Name="TRemarks" ColumnName="TRemarks" />
+                <ScalarProperty Name="TTaskId" ColumnName="TTaskId" />
+                <ScalarProperty Name="TState" ColumnName="TState" />
+                <ScalarProperty Name="TDriverId" ColumnName="TDriverId" />
+                <ScalarProperty Name="TTerritory" ColumnName="TTerritory" />
+                <ScalarProperty Name="TLocation" ColumnName="TLocation" />
+                <ScalarProperty Name="TGpSChipId" ColumnName="TGpSChipId" />
+                <ScalarProperty Name="TLicensePlateNumber" ColumnName="TLicensePlateNumber" />
+                <ScalarProperty Name="TModel" ColumnName="TModel" />
+                <ScalarProperty Name="TBrand" ColumnName="TBrand" />
+                <ScalarProperty Name="TType" ColumnName="TType" />
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Infor_UserLogin">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.T_Infor_UserLogin">
+              <MappingFragment StoreEntitySet="T_Infor_UserLogin">
+                <ScalarProperty Name="ULevel" ColumnName="ULevel" />
+                <ScalarProperty Name="UPassword" ColumnName="UPassword" />
+                <ScalarProperty Name="UAccount" ColumnName="UAccount" />
+                <ScalarProperty Name="UName" ColumnName="UName" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Infor_Warehouse">
+            <EntityTypeMapping TypeName="TransportSchedulingModel.T_Infor_Warehouse">
+              <MappingFragment StoreEntitySet="T_Infor_Warehouse">
+                <ScalarProperty Name="WState" ColumnName="WState" />
+                <ScalarProperty Name="WLocation" ColumnName="WLocation" />
+                <ScalarProperty Name="WStaffId" ColumnName="WStaffId" />
+                <ScalarProperty Name="WName" ColumnName="WName" />
+                <ScalarProperty Name="Wid" ColumnName="Wid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
