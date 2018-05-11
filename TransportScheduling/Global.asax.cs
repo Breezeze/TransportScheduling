@@ -13,7 +13,7 @@ namespace TransportScheduling
     // 请访问 http://go.microsoft.com/?LinkId=9394801
 
     public class MvcApplication : System.Web.HttpApplication
-    {阿斯蒂芬撒大丰收打分 
+    {
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

@@ -2,27 +2,53 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
-
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>基本地图展示</title>
-    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=73e03c98e7bb0f88c022c2cfecab8756"></script>
-    <script type="text/javascript">
-        var map;
-        function init() {
-            map = new AMap.Map('container', {
-                resizeEnable: true,
-                zoom: 11,
-                center: [115.482331, 38.867657]//经纬度
-            });
-            document.getElementById("Btn").style.display = "none";
-        }
-    </script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>基本地图</title>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
+    <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="http://webapi.amap.com/maps?v=1.4.6&key=73e03c98e7bb0f88c022c2cfecab8756"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 </head>
 <body>
-    <input type="button" value="点击查看" onclick="init()" id="Btn" />
-    <div id="container" style="height:800px;width:1000px"></div>
+    <div id="container" style="width:1000px;height:800px"></div>
+
+    <script>
+        var map = new AMap.Map('container', {
+            resizeEnable: true,
+            zoom: 15,//缩放比
+            center: [115.56733, 38.88002]//经纬度
+        });
+        var marker = new AMap.Marker({
+            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+            position: [115.56733, 38.88002]
+        });
+        marker.setMap(map);
+
+        function update() {
+            // 自定义点标记内容
+            var markerContent = document.createElement("div");
+
+            // 点标记中的图标
+            var markerImg = document.createElement("img");
+            markerImg.className = "markerlnglat";
+            markerImg.src = "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png";
+            markerContent.appendChild(markerImg);
+
+            // 点标记中的文本
+            var markerSpan = document.createElement("span");
+            markerSpan.className = 'marker';
+            markerSpan.innerHTML = "Hi，我换新装备啦！";
+            markerContent.appendChild(markerSpan);
+
+            marker.setContent(markerContent); //更新点标记内容
+            marker.setPosition([116.391467, 39.927761]); //更新点标记位置
+        }
+    </script>
+    <div> <input type="button" id="update" onclick="update()" value="更新标记" /></div>
 </body>
 </html>

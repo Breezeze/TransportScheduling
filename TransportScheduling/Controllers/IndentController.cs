@@ -17,97 +17,7 @@ namespace TransportScheduling.Controllers
 
         TSEntities db = new TSEntities();
 
-        /// <summary>
-        /// 信息查询
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public ActionResult Main()
-        {
-            int id = 1;
-            int totalRecord = db.T_Infor_Indent.Count();
-            ViewBag.PageNum = id;
-            ViewBag.TotalPage = (totalRecord - 1) / 10 + 1;
-            List<T_Infor_Indent> list = LoadPageItems(10, id, out totalRecord, (u => u.IState != 5 && u.IState != 6), u => u.Iid, true).ToList();
-
-            List<SelectListItem> statelist = db.T_Dic_IndentState.ToList().Where(c => c.Code != 5).Select(c => new SelectListItem()
-            {
-                Value = c.Code.ToString(),
-                Text = c.Description,
-                Selected = false
-            }).ToList();
-            ViewBag.StateList = statelist;
-            return View(list);
-        }
-
-        /// <summary>
-        /// 信息查询
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpPost, ActionName("Main")]
-        public ActionResult MainIndex(int id)
-        {
-            if (id < 1)
-                id = 1;
-            int totalRecord = db.T_Infor_Indent.Count();
-            ViewBag.PageNum = id;
-            ViewBag.TotalPage = (totalRecord - 1) / 10 + 1;
-            List<T_Infor_Indent> list = LoadPageItems(10, id, out totalRecord, (u => u.IState != 5 && u.IState != 6), u => u.Iid, true).ToList();
-
-            List<SelectListItem> statelist = db.T_Dic_IndentState.ToList().Select(c => new SelectListItem()
-            {
-                Value = c.Code.ToString(),
-                Text = c.Description,
-                Selected = false
-            }).ToList();
-            ViewBag.StateList = statelist;
-            ViewBag.InforList = list;
-            return View(list);
-        }
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id"></param>
-        public void Delete(int id)
-        {
-            T_Infor_Indent indent = new T_Infor_Indent() { Iid = id };
-            DbEntityEntry<T_Infor_Indent> entry = db.Entry<T_Infor_Indent>(indent);
-            entry.State = EntityState.Deleted;
-            int res = db.SaveChanges();
-            if (res == 1)
-                Response.Write("<script>alert('删除成功！'); window.location='/Indent/Main/1';</script>");
-        }
-
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <param name="model"></param>
-        [HttpPost]
-        public void Modify()
-        {
-            string date = "20" + Request.Form["IDeliveryDate"].Trim() + ":00";
-            T_Infor_Indent model = new T_Infor_Indent()
-            {
-                Iid = Convert.ToInt32(Request.Form["Iid"]),
-                IDeliveryDate = Convert.ToDateTime(Request.Form["IDeliveryDate"].Trim() + ":00"),
-                IState = Convert.ToInt32(Request.Form["IState"]),
-                IRemarks = Request.Form["IRemarks"]
-            };
-            DbEntityEntry<T_Infor_Indent> entry = db.Entry<T_Infor_Indent>(model);
-            entry.State = EntityState.Unchanged;
-            entry.Property("IState").IsModified = true;
-            entry.Property("IDeliveryDate").IsModified = true;
-            entry.Property("IRemarks").IsModified = true;
-            int res = db.SaveChanges();
-            if (res == 1)
-                Response.Write("<script>alert('修改成功！');window.location='/Indent/Main/1'</script>");
-            else
-                Response.Write("<script>alert('修改失败！');window.location='/Indent/Main/1'</script>");
-
-        }
-
+        #region 添加
         /// <summary>
         /// 添加新的订单
         /// </summary>
@@ -172,6 +82,107 @@ namespace TransportScheduling.Controllers
             }
         }
 
+        #endregion
+
+        #region 删除
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        public void Delete(int id)
+        {
+            T_Infor_Indent indent = new T_Infor_Indent() { Iid = id };
+            DbEntityEntry<T_Infor_Indent> entry = db.Entry<T_Infor_Indent>(indent);
+            entry.State = EntityState.Deleted;
+            int res = db.SaveChanges();
+            if (res == 1)
+                Response.Write("<script>alert('删除成功！'); window.location='/Indent/Main/1';</script>");
+        }
+
+        #endregion
+
+        #region 修改
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="model"></param>
+        [HttpPost]
+        public void Modify()
+        {
+            string date = "20" + Request.Form["IDeliveryDate"].Trim() + ":00";
+            T_Infor_Indent model = new T_Infor_Indent()
+            {
+                Iid = Convert.ToInt32(Request.Form["Iid"]),
+                IDeliveryDate = Convert.ToDateTime(Request.Form["IDeliveryDate"].Trim() + ":00"),
+                IState = Convert.ToInt32(Request.Form["IState"]),
+                IRemarks = Request.Form["IRemarks"]
+            };
+            DbEntityEntry<T_Infor_Indent> entry = db.Entry<T_Infor_Indent>(model);
+            entry.State = EntityState.Unchanged;
+            entry.Property("IState").IsModified = true;
+            entry.Property("IDeliveryDate").IsModified = true;
+            entry.Property("IRemarks").IsModified = true;
+            int res = db.SaveChanges();
+            if (res == 1)
+                Response.Write("<script>alert('修改成功！');window.location='/Indent/Main/1'</script>");
+            else
+                Response.Write("<script>alert('修改失败！');window.location='/Indent/Main/1'</script>");
+
+        }
+
+        #endregion
+
+        #region 查询
+
+        /// <summary>
+        /// 信息查询
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Main()
+        {
+            int id = 1;
+            int totalRecord = db.T_Infor_Indent.Count();
+            ViewBag.PageNum = id;
+            ViewBag.TotalPage = (totalRecord - 1) / 10 + 1;
+            List<T_Infor_Indent> list = LoadPageItems(10, id, out totalRecord, (u => u.IState != 5 && u.IState != 6), u => u.Iid, true).ToList();
+
+            List<SelectListItem> statelist = db.T_Dic_IndentState.ToList().Where(c => c.Code != 5).Select(c => new SelectListItem()
+            {
+                Value = c.Code.ToString(),
+                Text = c.Description,
+                Selected = false
+            }).ToList();
+            ViewBag.StateList = statelist;
+            return View(list);
+        }
+
+        /// <summary>
+        /// 信息查询
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost, ActionName("Main")]
+        public ActionResult MainIndex(int id)
+        {
+            if (id < 1)
+                id = 1;
+            int totalRecord = db.T_Infor_Indent.Count();
+            ViewBag.PageNum = id;
+            ViewBag.TotalPage = (totalRecord - 1) / 10 + 1;
+            List<T_Infor_Indent> list = LoadPageItems(10, id, out totalRecord, (u => u.IState != 5 && u.IState != 6), u => u.Iid, true).ToList();
+
+            List<SelectListItem> statelist = db.T_Dic_IndentState.ToList().Select(c => new SelectListItem()
+            {
+                Value = c.Code.ToString(),
+                Text = c.Description,
+                Selected = false
+            }).ToList();
+            ViewBag.StateList = statelist;
+            ViewBag.InforList = list;
+            return View(list);
+        }
 
         #region 分页
 
@@ -209,6 +220,7 @@ namespace TransportScheduling.Controllers
 
         #endregion
 
+        #endregion
 
     }
 }
