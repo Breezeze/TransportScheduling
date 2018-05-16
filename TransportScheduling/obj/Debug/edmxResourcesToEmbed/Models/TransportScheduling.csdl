@@ -4,7 +4,7 @@
     <EntitySet Name="sysdiagrams" EntityType="TransportSchedulingModel.sysdiagrams" />
     <EntitySet Name="T_Dic_GoodsState" EntityType="TransportSchedulingModel.T_Dic_GoodsState" />
     <EntitySet Name="T_Dic_IndentState" EntityType="TransportSchedulingModel.T_Dic_IndentState" />
-    <EntitySet Name="T_Dic_Staff" EntityType="TransportSchedulingModel.T_Dic_Staff" />
+    <EntitySet Name="T_Dic_StaffState" EntityType="TransportSchedulingModel.T_Dic_StaffState" />
     <EntitySet Name="T_Dic_TruckState" EntityType="TransportSchedulingModel.T_Dic_TruckState" />
     <EntitySet Name="T_Dic_WarehouseState" EntityType="TransportSchedulingModel.T_Dic_WarehouseState" />
     <EntitySet Name="T_Infor_Goods" EntityType="TransportSchedulingModel.T_Infor_Goods" />
@@ -22,7 +22,7 @@
       <End Role="T_Infor_Indent" EntitySet="T_Infor_Indent" />
     </AssociationSet>
     <AssociationSet Name="FK_T_Infor_Staff_T_Dic_Staff" Association="TransportSchedulingModel.FK_T_Infor_Staff_T_Dic_Staff">
-      <End Role="T_Dic_Staff" EntitySet="T_Dic_Staff" />
+      <End Role="T_Dic_StaffState" EntitySet="T_Dic_StaffState" />
       <End Role="T_Infor_Staff" EntitySet="T_Infor_Staff" />
     </AssociationSet>
     <AssociationSet Name="FK_T_Infor_Truck_T_Dic_TruckState" Association="TransportSchedulingModel.FK_T_Infor_Truck_T_Dic_TruckState">
@@ -62,14 +62,14 @@
     <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="T_Infor_Indent" Relationship="TransportSchedulingModel.FK_T_Infor_Indent_T_Dic_IndentState" FromRole="T_Dic_IndentState" ToRole="T_Infor_Indent" />
   </EntityType>
-  <EntityType Name="T_Dic_Staff">
+  <EntityType Name="T_Dic_StaffState">
     <Key>
       <PropertyRef Name="Code" />
     </Key>
     <Property Name="Nid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Code" Type="Int32" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="T_Infor_Staff" Relationship="TransportSchedulingModel.FK_T_Infor_Staff_T_Dic_Staff" FromRole="T_Dic_Staff" ToRole="T_Infor_Staff" />
+    <NavigationProperty Name="T_Infor_Staff" Relationship="TransportSchedulingModel.FK_T_Infor_Staff_T_Dic_Staff" FromRole="T_Dic_StaffState" ToRole="T_Infor_Staff" />
   </EntityType>
   <EntityType Name="T_Dic_TruckState">
     <Key>
@@ -107,7 +107,7 @@
       <PropertyRef Name="Iid" />
     </Key>
     <Property Name="Iid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ICode" Type="Int64" />
+    <Property Name="ICode" Type="Int64" Nullable="false" />
     <Property Name="IContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="ISigningDate" Type="DateTime" Precision="0" />
     <Property Name="IExpirationDate" Type="DateTime" Precision="0" />
@@ -132,7 +132,7 @@
     <Property Name="SHolidayEndDate" Type="DateTime" Precision="0" />
     <Property Name="SLevel" Type="Int32" />
     <Property Name="SUserId" Type="Int32" />
-    <NavigationProperty Name="T_Dic_Staff" Relationship="TransportSchedulingModel.FK_T_Infor_Staff_T_Dic_Staff" FromRole="T_Infor_Staff" ToRole="T_Dic_Staff" />
+    <NavigationProperty Name="T_Dic_StaffState" Relationship="TransportSchedulingModel.FK_T_Infor_Staff_T_Dic_Staff" FromRole="T_Infor_Staff" ToRole="T_Dic_StaffState" />
   </EntityType>
   <EntityType Name="T_Infor_Truck">
     <Key>
@@ -198,10 +198,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_T_Infor_Staff_T_Dic_Staff">
-    <End Type="TransportSchedulingModel.T_Dic_Staff" Role="T_Dic_Staff" Multiplicity="0..1" />
+    <End Type="TransportSchedulingModel.T_Dic_StaffState" Role="T_Dic_StaffState" Multiplicity="0..1" />
     <End Type="TransportSchedulingModel.T_Infor_Staff" Role="T_Infor_Staff" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="T_Dic_Staff">
+      <Principal Role="T_Dic_StaffState">
         <PropertyRef Name="Code" />
       </Principal>
       <Dependent Role="T_Infor_Staff">

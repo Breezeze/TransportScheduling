@@ -28,7 +28,7 @@ namespace TransportScheduling.Models
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<T_Dic_GoodsState> T_Dic_GoodsState { get; set; }
         public DbSet<T_Dic_IndentState> T_Dic_IndentState { get; set; }
-        public DbSet<T_Dic_Staff> T_Dic_Staff { get; set; }
+        public DbSet<T_Dic_StaffState> T_Dic_StaffState { get; set; }
         public DbSet<T_Dic_TruckState> T_Dic_TruckState { get; set; }
         public DbSet<T_Dic_WarehouseState> T_Dic_WarehouseState { get; set; }
         public DbSet<T_Infor_Goods> T_Infor_Goods { get; set; }

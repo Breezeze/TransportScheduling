@@ -12,9 +12,9 @@ namespace TransportScheduling.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class T_Dic_Staff
+    public partial class T_Dic_StaffState
     {
-        public T_Dic_Staff()
+        public T_Dic_StaffState()
         {
             this.T_Infor_Staff = new HashSet<T_Infor_Staff>();
         }

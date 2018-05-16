@@ -30,9 +30,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="T_Dic_Staff">
-      <EntityTypeMapping TypeName="TransportSchedulingModel.T_Dic_Staff">
-        <MappingFragment StoreEntitySet="T_Dic_Staff">
+    <EntitySetMapping Name="T_Dic_StaffState">
+      <EntityTypeMapping TypeName="TransportSchedulingModel.T_Dic_StaffState">
+        <MappingFragment StoreEntitySet="T_Dic_StaffState">
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="Nid" ColumnName="Nid" />

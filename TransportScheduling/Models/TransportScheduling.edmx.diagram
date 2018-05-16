@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="TransportSchedulingModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="9.75" />
         <EntityTypeShape EntityType="TransportSchedulingModel.T_Dic_GoodsState" Width="1.5" PointX="0.75" PointY="10.375" />
         <EntityTypeShape EntityType="TransportSchedulingModel.T_Dic_IndentState" Width="1.5" PointX="5.75" PointY="6.375" />
-        <EntityTypeShape EntityType="TransportSchedulingModel.T_Dic_Staff" Width="1.5" PointX="5.75" PointY="1.875" />
+        <EntityTypeShape EntityType="TransportSchedulingModel.T_Dic_StaffState" Width="1.5" PointX="5.75" PointY="1.875" />
         <EntityTypeShape EntityType="TransportSchedulingModel.T_Dic_TruckState" Width="1.5" PointX="0.75" PointY="5.875" />
         <EntityTypeShape EntityType="TransportSchedulingModel.T_Dic_WarehouseState" Width="1.5" PointX="0.75" PointY="1.125" />
         <EntityTypeShape EntityType="TransportSchedulingModel.T_Infor_Goods" Width="1.5" PointX="3" PointY="10" />

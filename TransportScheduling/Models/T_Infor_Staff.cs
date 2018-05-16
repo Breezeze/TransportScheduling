@@ -27,6 +27,6 @@ namespace TransportScheduling.Models
         public Nullable<int> SLevel { get; set; }
         public Nullable<int> SUserId { get; set; }
     
-        public virtual T_Dic_Staff T_Dic_Staff { get; set; }
+        public virtual T_Dic_StaffState T_Dic_StaffState { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Infrastructure;
@@ -11,11 +10,10 @@ using TransportScheduling.Models;
 
 namespace TransportScheduling.Controllers
 {
-    public class IndentController : Controller
+    public class UserController : Controller
     {
-        // /Indent/
-
-        DAL.DAL_T_Infor_Indent Handle = new DAL.DAL_T_Infor_Indent();
+        TSEntities db = new TSEntities();
+        DAL.DAL_T_Infor_UserLogin Handle = new DAL.DAL_T_Infor_UserLogin();
 
         #region 添加
         /// <summary>
@@ -29,15 +27,13 @@ namespace TransportScheduling.Controllers
         /// </summary>
         /// <param name="model"></param>
         [HttpPost]
-        public void Add(T_Infor_Indent model)
+        public void Add(T_Infor_UserLogin model)
         {
-            //查询ICode最大值
-            long maxcode = Handle.db.T_Infor_Indent.Select(c => c.ICode).Max();
-            model.ICode = maxcode;
-            int res = Handle.Add(model);
-            if (res == 1)
-                Response.Write("<script>alert('添加成功！'); window.location='/Indent/Main/1'</script>");
-
+            int result = Handle.Add(model);
+            if (result == 1)
+                Response.Write("<script>alert('添加成功！'); window.location='/User/Main/1'</script>");
+            else
+                Response.Write("<script>alert('添加失败！'); window.location='/User/Add'</script>");
         }
 
         /// <summary>
@@ -60,11 +56,13 @@ namespace TransportScheduling.Controllers
                     IState = Convert.ToInt32(Request.Form["State"])
                 };
                 //查询ICode最大值
-                long maxcode = Handle.db.T_Infor_Indent.Select(o => o.ICode).Max();
+                long maxcode = db.T_Infor_Indent.Select(o => o.ICode).Max();
                 model.ICode = ++maxcode;
-                int res = Handle.Add(model);
+                db.T_Infor_Indent.Add(model);
+                int res = db.SaveChanges();
                 if (res == 1)
                     Response.Write("<script>alert('添加成功！'); window.location='/Indent/Main/1'</script>");
+
             }
             catch (Exception)
             {
@@ -82,7 +80,10 @@ namespace TransportScheduling.Controllers
         /// <param name="id"></param>
         public void Delete(int id)
         {
-            int res = Handle.DelBy(c => c.Iid == id);
+            T_Infor_Indent indent = new T_Infor_Indent() { Iid = id };
+            DbEntityEntry<T_Infor_Indent> entry = db.Entry<T_Infor_Indent>(indent);
+            entry.State = EntityState.Deleted;
+            int res = db.SaveChanges();
             if (res == 1)
                 Response.Write("<script>alert('删除成功！'); window.location='/Indent/Main/1';</script>");
         }
@@ -97,7 +98,7 @@ namespace TransportScheduling.Controllers
         [HttpPost]
         public void Modify()
         {
-            //string date = "20" + Request.Form["IDeliveryDate"].Trim() + ":00";
+            string date = "20" + Request.Form["IDeliveryDate"].Trim() + ":00";
             T_Infor_Indent model = new T_Infor_Indent()
             {
                 Iid = Convert.ToInt32(Request.Form["Iid"]),
@@ -105,7 +106,12 @@ namespace TransportScheduling.Controllers
                 IState = Convert.ToInt32(Request.Form["IState"]),
                 IRemarks = Request.Form["IRemarks"]
             };
-            int res = Handle.Modify(model, "Iid", "IDeliveryDate", "IState", "IRemarks");
+            DbEntityEntry<T_Infor_Indent> entry = db.Entry<T_Infor_Indent>(model);
+            entry.State = EntityState.Unchanged;
+            entry.Property("IState").IsModified = true;
+            entry.Property("IDeliveryDate").IsModified = true;
+            entry.Property("IRemarks").IsModified = true;
+            int res = db.SaveChanges();
             if (res == 1)
                 Response.Write("<script>alert('修改成功！');window.location='/Indent/Main/1'</script>");
             else
@@ -122,7 +128,23 @@ namespace TransportScheduling.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult Main() { return MainIndex(1); }
+        public ActionResult Main()
+        {
+            int id = 1;
+            int totalRecord = db.T_Infor_Indent.Count();
+            ViewBag.PageNum = id;
+            ViewBag.TotalPage = (totalRecord - 1) / 10 + 1;
+            List<T_Infor_Indent> list = LoadPageItems(10, id, out totalRecord, (u => u.IState != 5 && u.IState != 6), u => u.Iid, true).ToList();
+
+            List<SelectListItem> statelist = db.T_Dic_IndentState.ToList().Where(c => c.Code != 5).Select(c => new SelectListItem()
+            {
+                Value = c.Code.ToString(),
+                Text = c.Description,
+                Selected = false
+            }).ToList();
+            ViewBag.StateList = statelist;
+            return View(list);
+        }
 
         /// <summary>
         /// 信息查询
@@ -134,12 +156,19 @@ namespace TransportScheduling.Controllers
         {
             if (id < 1)
                 id = 1;
-            int totalRecord = Handle.db.T_Infor_Indent.Count();
+            int totalRecord = db.T_Infor_Indent.Count();
             ViewBag.PageNum = id;
             ViewBag.TotalPage = (totalRecord - 1) / 10 + 1;
-            List<T_Infor_Indent> list = Handle.GetPagedList<int>(id, 10, (m => m.IState != 5 && m.IState != 6), u => u.Iid);
-            List<SelectListItem> statelist = Handle.GetSLItem<T_Dic_IndentState>(c => c.Code != 5, "T_Dic_IndentState", "Code", "Description");
+            List<T_Infor_Indent> list = LoadPageItems(10, id, out totalRecord, (u => u.IState != 5 && u.IState != 6), u => u.Iid, true).ToList();
+
+            List<SelectListItem> statelist = db.T_Dic_IndentState.ToList().Select(c => new SelectListItem()
+            {
+                Value = c.Code.ToString(),
+                Text = c.Description,
+                Selected = false
+            }).ToList();
             ViewBag.StateList = statelist;
+            ViewBag.InforList = list;
             return View(list);
         }
 
@@ -156,12 +185,12 @@ namespace TransportScheduling.Controllers
         /// <param name="orderbyLambda">排序条件</param>  
         /// <param name="isAsc">是否升序</param>  
         /// <returns>IQueryable 泛型集合</returns>  
-        private IQueryable<T_Infor_Indent> LoadPageItems<Tkey>(int pageSize, int pageIndex, out int total, Expression<Func<T_Infor_Indent, bool>> whereLambda, Func<T_Infor_Indent, Tkey> orderbyLambda, bool isAsc)
+        public IQueryable<T_Infor_Indent> LoadPageItems<Tkey>(int pageSize, int pageIndex, out int total, Expression<Func<T_Infor_Indent, bool>> whereLambda, Func<T_Infor_Indent, Tkey> orderbyLambda, bool isAsc)
         {
-            total = Handle.db.Set<T_Infor_Indent>().Where(whereLambda).Count();
+            total = db.Set<T_Infor_Indent>().Where(whereLambda).Count();
             if (isAsc)
             {
-                var temp = Handle.db.Set<T_Infor_Indent>().Where(whereLambda)
+                var temp = db.Set<T_Infor_Indent>().Where(whereLambda)
                              .OrderBy<T_Infor_Indent, Tkey>(orderbyLambda)
                              .Skip(pageSize * (pageIndex - 1))
                              .Take(pageSize);
@@ -169,7 +198,7 @@ namespace TransportScheduling.Controllers
             }
             else
             {
-                var temp = Handle.db.Set<T_Infor_Indent>().Where(whereLambda)
+                var temp = db.Set<T_Infor_Indent>().Where(whereLambda)
                            .OrderByDescending<T_Infor_Indent, Tkey>(orderbyLambda)
                            .Skip(pageSize * (pageIndex - 1))
                            .Take(pageSize);
@@ -182,4 +211,6 @@ namespace TransportScheduling.Controllers
         #endregion
 
     }
+
+
 }

@@ -15,7 +15,7 @@ namespace TransportScheduling.Models
     public partial class T_Infor_Indent
     {
         public int Iid { get; set; }
-        public Nullable<long> ICode { get; set; }
+        public long ICode { get; set; }
         public string IContent { get; set; }
         public Nullable<System.DateTime> ISigningDate { get; set; }
         public Nullable<System.DateTime> IExpirationDate { get; set; }

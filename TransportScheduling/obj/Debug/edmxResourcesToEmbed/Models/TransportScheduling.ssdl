@@ -26,7 +26,7 @@
     <Property Name="Code" Type="int" Nullable="false" />
     <Property Name="Description" Type="varchar" MaxLength="50" />
   </EntityType>
-  <EntityType Name="T_Dic_Staff">
+  <EntityType Name="T_Dic_StaffState">
     <Key>
       <PropertyRef Name="Code" />
     </Key>
@@ -67,7 +67,7 @@
       <PropertyRef Name="Iid" />
     </Key>
     <Property Name="Iid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ICode" Type="bigint" />
+    <Property Name="ICode" Type="bigint" Nullable="false" />
     <Property Name="IContent" Type="text" />
     <Property Name="ISigningDate" Type="smalldatetime" />
     <Property Name="IExpirationDate" Type="smalldatetime" />
@@ -154,10 +154,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_T_Infor_Staff_T_Dic_Staff">
-    <End Role="T_Dic_Staff" Type="Self.T_Dic_Staff" Multiplicity="0..1" />
+    <End Role="T_Dic_StaffState" Type="Self.T_Dic_StaffState" Multiplicity="0..1" />
     <End Role="T_Infor_Staff" Type="Self.T_Infor_Staff" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="T_Dic_Staff">
+      <Principal Role="T_Dic_StaffState">
         <PropertyRef Name="Code" />
       </Principal>
       <Dependent Role="T_Infor_Staff">
@@ -193,7 +193,7 @@
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="T_Dic_GoodsState" EntityType="Self.T_Dic_GoodsState" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="T_Dic_IndentState" EntityType="Self.T_Dic_IndentState" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="T_Dic_Staff" EntityType="Self.T_Dic_Staff" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Dic_StaffState" EntityType="Self.T_Dic_StaffState" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="T_Dic_TruckState" EntityType="Self.T_Dic_TruckState" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="T_Dic_WarehouseState" EntityType="Self.T_Dic_WarehouseState" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="T_Infor_Goods" EntityType="Self.T_Infor_Goods" Schema="dbo" store:Type="Tables" />
@@ -211,7 +211,7 @@
       <End Role="T_Infor_Indent" EntitySet="T_Infor_Indent" />
     </AssociationSet>
     <AssociationSet Name="FK_T_Infor_Staff_T_Dic_Staff" Association="Self.FK_T_Infor_Staff_T_Dic_Staff">
-      <End Role="T_Dic_Staff" EntitySet="T_Dic_Staff" />
+      <End Role="T_Dic_StaffState" EntitySet="T_Dic_StaffState" />
       <End Role="T_Infor_Staff" EntitySet="T_Infor_Staff" />
     </AssociationSet>
     <AssociationSet Name="FK_T_Infor_Truck_T_Dic_TruckState" Association="Self.FK_T_Infor_Truck_T_Dic_TruckState">
